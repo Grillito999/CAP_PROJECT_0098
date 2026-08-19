@@ -1,0 +1,4 @@
+ID,headerID,email,firstName,lastName,country,createOn,deliveryDate,orderStatus_code,imageUrl,createdAt,createdBy,modifiedAt,modifiedBy
+e4f2a1b0-9c8d-4e7a-b5f3-1a2b3c4d5e6f,100001,carlos.mendoza@example.com,Carlos,Mendoza,Colombia,2026-08-01,2026-08-15T10:00:00Z,InStock,https://raw.githubusercontent.com/SAP-samples/cloud-cap-samples/main/assets/images/electronics.jpg,2026-08-01T08:30:00Z,admin,2026-08-01T08:30:00Z,admin
+a8b9c0d1-e2f3-4a5b-8c7d-9e0f1a2b3c4d,100002,ana.gomez@example.com,Ana,Gómez,Chile,2026-08-03,2026-08-18T14:30:00Z,LowAvailability,https://raw.githubusercontent.com/SAP-samples/cloud-cap-samples/main/assets/images/laptop.jpg,2026-08-03T09:15:00Z,admin,2026-08-04T10:00:00Z,admin
+f7e6d5c4-b3a2-4f1e-9d8c-7b6a5f4e3d2c,100003,juan.perez@example.com,Juan,Pérez,México,2026-08-05,2026-08-20T11:00:00Z, NotInStock,https://raw.githubusercontent.com/SAP-samples/cloud-cap-samples/main/assets/images/monitor.jpg,2026-08-05T12:00:00Z,admin,2026-08-05T12:00:00Z,admin
