@@ -8,19 +8,9 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.HeaderInfo: {
 
 };
 
-annotate CAP_PROJECT_SERVICE.status with {
-
-  code @(
-
-    Common.Label          : 'Status',
-    Common.Text           : name,
-    Common.TextArrangement: #TextOnly
-  );
-
-};
 
 annotate CAP_PROJECT_SERVICE.Header with {
-  ID           @UI.HiddenFilter: true  @Consumption.filter.hidden: true;
+  ID           @UI.HiddenFilter: true           @Consumption.filter.hidden: true;
   headerID     @title: 'Product';
   email        @title: 'Email';
   firstName    @title: 'First Name';
@@ -30,10 +20,10 @@ annotate CAP_PROJECT_SERVICE.Header with {
   deliveryDate @title: 'Delivery Date';
   orderStatus  @title: 'Status';
   imageUrl     @title: 'Image URL';
-  createdAt    @title: 'Created At';
-  createdBy    @title: 'Created By';
-  modifiedAt   @title: 'Modified At';
-  modifiedBy   @title: 'Modified By'
+  createdAt    @title          : 'Created At'   @UI.HiddenFilter          : true  @Consumption.filter.hidden: true;
+  createdBy    @title          : 'Created By'   @UI.HiddenFilter          : true  @Consumption.filter.hidden: true;
+  modifiedAt   @title          : 'Modified At'  @UI.HiddenFilter          : true  @Consumption.filter.hidden: true;
+  modifiedBy   @title          : 'Modified By'  @UI.HiddenFilter          : true  @Consumption.filter.hidden: true;
 };
 
 annotate CAP_PROJECT_SERVICE.Header with @UI.SelectionFields: [
@@ -41,13 +31,13 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.SelectionFields: [
   email,
   firstName,
   lastName,
-  country,
+  country_code,
   orderStatus_code
 ];
 
 annotate CAP_PROJECT_SERVICE.Header with {
 
-  headerID    @(Common: {
+  headerID  @(Common: {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
@@ -75,12 +65,6 @@ annotate CAP_PROJECT_SERVICE.Header with {
         $Type            : 'Common.ValueListParameterInOut',
         LocalDataProperty: lastName,
         ValueListProperty: 'lastName',
-      },
-
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: country,
-        ValueListProperty: 'country',
       }
 
     ]
@@ -88,7 +72,7 @@ annotate CAP_PROJECT_SERVICE.Header with {
 
   });
 
-  email       @(Common: {
+  email     @(Common: {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
@@ -118,7 +102,7 @@ annotate CAP_PROJECT_SERVICE.Header with {
 
   });
 
-  firstName   @(Common: {
+  firstName @(Common: {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
@@ -142,12 +126,6 @@ annotate CAP_PROJECT_SERVICE.Header with {
         $Type            : 'Common.ValueListParameterInOut',
         LocalDataProperty: email,
         ValueListProperty: 'email',
-      },
-
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: country,
-        ValueListProperty: 'country',
       }
 
     ]
@@ -155,7 +133,7 @@ annotate CAP_PROJECT_SERVICE.Header with {
 
   });
 
-  lastName    @(Common: {
+  lastName  @(Common: {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
@@ -179,12 +157,6 @@ annotate CAP_PROJECT_SERVICE.Header with {
         $Type            : 'Common.ValueListParameterInOut',
         LocalDataProperty: email,
         ValueListProperty: 'email',
-      },
-
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: country,
-        ValueListProperty: 'country',
       }
 
     ]
@@ -193,28 +165,42 @@ annotate CAP_PROJECT_SERVICE.Header with {
   });
 
 
-  country     @(Common: {
+  country   @(Common: {
 
-  ValueList: {
-    $Type         : 'Common.ValueListType',
-    CollectionPath: 'Header',
+    Text     : country.name,
 
-    Parameters    : [
+    ValueList: {
+      $Type         : 'Common.ValueListType',
+      CollectionPath: 'Countries',
 
-    {
-      $Type            : 'Common.ValueListParameterInOut',
-      LocalDataProperty: country,
-      ValueListProperty: 'country',
-    }
+      Parameters    : [
 
-    ]
-  },
+        {
+          $Type            : 'Common.ValueListParameterInOut',
+          LocalDataProperty: country_code,
+          ValueListProperty: 'code',
+        },
+
+        {
+          $Type            : 'Common.ValueListParameterInOut',
+          LocalDataProperty: country_code,
+          ValueListProperty: 'name',
+        }
+
+      ]
+    },
 
   });
 
 
-  orderStatus @Common.ValueListWithFixedValues: true // Se implementan las anotaciones de ValueListWithFixedValues para mostrar una lista de valores fijos en la aplicación FIOR
-              @(Common: {
+  orderStatus
+
+            @Common.Text                    : orderStatus.name
+            @Common.TextArrangement         : #TextOnly
+
+            @Common.ValueListWithFixedValues: true // Se implementan las anotaciones de ValueListWithFixedValues para mostrar una lista de valores fijos en la aplicación FIOR
+
+            @(Common: {
 
     ValueListWithFixedValue: true,
 
@@ -223,11 +209,11 @@ annotate CAP_PROJECT_SERVICE.Header with {
       CollectionPath: 'status',
       Parameters    : [
 
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: orderStatus_code,
-        ValueListProperty: 'code',
-      }
+       {
+          $Type            : 'Common.ValueListParameterInOut',
+          LocalDataProperty: orderStatus_code,
+          ValueListProperty: 'code',
+        }
 
       ]
     }
@@ -266,7 +252,7 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
   },
   {
     $Type                : 'UI.DataField',
-    Value                : country,
+    Value                : country_code,
     ![@HTML5.CssDefaults]: {width: '8rem'}
   },
   {
@@ -277,17 +263,12 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
     $Type: 'UI.DataField',
     Value: deliveryDate
   },
+
   {
     $Type                : 'UI.DataField',
     Criticality          : orderStatus.criticality,
-    Value                : orderStatus.code,
+    Value                : orderStatus_code,
     ![@HTML5.CssDefaults]: {width: '10rem'}
-  },
-
-  {
-    $Type     : 'UI.DataField',
-    Value     : orderStatus_code,
-    @UI.Hidden: true
   },
 
   {
@@ -302,11 +283,11 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.FieldGroup #Main: {
   Data : [
     {
       $Type: 'UI.DataField',
-      Value: headerID
+      Value: headerID,
     },
     {
       $Type: 'UI.DataField',
-      Value: email
+      Value: email,
     },
     {
       $Type: 'UI.DataField',
@@ -318,7 +299,7 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.FieldGroup #Main: {
     },
     {
       $Type: 'UI.DataField',
-      Value: country
+      Value: country_code
     },
     {
       $Type: 'UI.DataField',
@@ -329,29 +310,12 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.FieldGroup #Main: {
       Value: deliveryDate
     },
     {
-      $Type      : 'UI.DataField',
-      Criticality: orderStatus.criticality,
-      Value      : orderStatus.code
+      $Type: 'UI.DataField',
+      Value: orderStatus_code
     },
     {
       $Type: 'UI.DataField',
       Value: imageUrl
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: createdAt
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: createdBy
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: modifiedAt
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: modifiedBy
     }
   ]
 };
@@ -391,19 +355,99 @@ annotate CAP_PROJECT_SERVICE.Item with {
 annotate CAP_PROJECT_SERVICE.Item with {
   itemID           @title: 'ID';
   name             @title: 'Name';
-  description      @title: 'Description';
+  description      @title: 'Description'  @UI.MultiLineText;
   releaseDate      @title: 'Release Date';
   discontinuedDate @title: 'Discontinued Date';
-  price            @title: 'Price';
-  height           @title: 'Height';
-  width            @title: 'Width';
-  depth            @title: 'Depth';
+  price            @title: 'Price'        @Measures.ISOCurrency: Currency_code;
+  height           @title: 'Height'       @Measures.Unit       : unitOfMeasure;
+  width            @title: 'Width'        @Measures.Unit       : unitOfMeasure;
+  depth            @title: 'Depth'        @Measures.Unit       : unitOfMeasure;
   quantity         @title: 'Quantity';
-  unitOfMeasure    @title: 'Unit Of Measure'
+  unitOfMeasure    @title: 'Unit Of Measure';
+
 };
 
+
 annotate CAP_PROJECT_SERVICE.Item with {
-  price @Measures.ISOCurrency: Currency_code
+
+  itemID        @(Common: {
+
+  ValueList: {
+    $Type         : 'Common.ValueListType',
+    CollectionPath: 'Item',
+
+    Parameters    : [
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: itemID,
+        ValueListProperty: 'itemID',
+      },
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: name,
+        ValueListProperty: 'name',
+      },
+
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: description,
+        ValueListProperty: 'description',
+      },
+
+    ]
+  },
+
+  });
+
+
+  name          @(Common: {
+
+  ValueList: {
+    $Type         : 'Common.ValueListType',
+    CollectionPath: 'Item',
+
+    Parameters    : [
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: name,
+        ValueListProperty: 'name',
+      },
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: description,
+        ValueListProperty: 'description',
+      }
+
+    ]
+  },
+
+  });
+
+  unitOfMeasure @(Common: {
+
+  ValueList: {
+    $Type         : 'Common.ValueListType',
+    CollectionPath: 'Item',
+
+    Parameters    : [
+      {
+
+
+        $Type            : 'Common.ValueListParameterIn',
+        LocalDataProperty: itemID,
+        ValueListProperty: 'itemID',
+      },
+      {
+        $Type            : 'Common.ValueListParameterOut',
+        LocalDataProperty: unitOfMeasure,
+        ValueListProperty: 'unitOfMeasure',
+      },
+
+    ]
+  },
+
+  });
+
 };
 
 annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
@@ -503,12 +547,6 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.FieldGroup #Main: {
   ]
 };
 
-annotate CAP_PROJECT_SERVICE.Item with {
-  header @Common.Text: {
-    $value                : itemID,
-    ![@UI.TextArrangement]: #TextOnly
-  }
-};
 
 annotate CAP_PROJECT_SERVICE.Item with {
   header @Common.Label: 'Header'
