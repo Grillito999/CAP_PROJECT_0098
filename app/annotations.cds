@@ -11,7 +11,7 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.HeaderInfo: {
 
 annotate CAP_PROJECT_SERVICE.Header with {
   ID           @UI.HiddenFilter: true           @Consumption.filter.hidden: true;
-  headerID     @title: 'Product';
+  headerID     @title: 'ID';
   email        @title: 'Email';
   firstName    @title: 'First Name';
   lastName     @title: 'Last Name';
@@ -209,11 +209,11 @@ annotate CAP_PROJECT_SERVICE.Header with {
       CollectionPath: 'status',
       Parameters    : [
 
-       {
-          $Type            : 'Common.ValueListParameterInOut',
-          LocalDataProperty: orderStatus_code,
-          ValueListProperty: 'code',
-        }
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: orderStatus_code,
+        ValueListProperty: 'code',
+      }
 
       ]
     }
@@ -277,10 +277,8 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
   }
 ];
 
-annotate CAP_PROJECT_SERVICE.Header with @UI.FieldGroup #Main: {
+annotate CAP_PROJECT_SERVICE.Header with @UI.Identification: [
 
-  $Type: 'UI.FieldGroupType',
-  Data : [
     {
       $Type: 'UI.DataField',
       Value: headerID,
@@ -317,15 +315,15 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.FieldGroup #Main: {
       $Type: 'UI.DataField',
       Value: imageUrl
     }
-  ]
-};
+
+  ];
 
 annotate CAP_PROJECT_SERVICE.Header with @UI.Facets: [
   {
     $Type : 'UI.ReferenceFacet',
     ID    : 'Main',
     Label : 'Product Information',
-    Target: '@UI.FieldGroup#Main'
+    Target: '@UI.Identifications'
   },
   {
     $Type : 'UI.ReferenceFacet',
@@ -344,15 +342,7 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.HeaderInfo: {
 };
 
 annotate CAP_PROJECT_SERVICE.Item with {
-  ID  @UI.Hidden  @Common.Text: {
-    $value                : itemID,
-    ![@UI.TextArrangement]: #TextOnly
-  }
-};
-
-// annotate CAP_PROJECT_SERVICE.Item with @UI.Identification: [{Value: itemID}];
-
-annotate CAP_PROJECT_SERVICE.Item with {
+  ID               @UI.Hidden;
   itemID           @title: 'ID';
   name             @title: 'Name';
   description      @title: 'Description'  @UI.MultiLineText;
@@ -450,6 +440,61 @@ annotate CAP_PROJECT_SERVICE.Item with {
 
 };
 
+
+annotate CAP_PROJECT_SERVICE.Item with @UI.Facets: [{
+  $Type : 'UI.ReferenceFacet',
+  ID    : 'Main',
+  Label : 'Item Information',
+  Target: '@UI.Identification'
+}];
+
+annotate CAP_PROJECT_SERVICE.Item with @UI.Identification: [
+    {
+      $Type: 'UI.DataField',
+      Value: itemID
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: name
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: description
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: releaseDate
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: discontinuedDate
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: price
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: height
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: width
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: depth
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: quantity
+    },
+    {
+      $Type: 'UI.DataField',
+      Value: unitOfMeasure
+    }
+  ];
+
 annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
   {
     $Type: 'UI.DataField',
@@ -496,67 +541,3 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
     Value: unitOfMeasure
   }
 ];
-
-annotate CAP_PROJECT_SERVICE.Item with @UI.FieldGroup #Main: {
-  $Type: 'UI.FieldGroupType',
-  Data : [
-    {
-      $Type: 'UI.DataField',
-      Value: itemID
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: name
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: description
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: releaseDate
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: discontinuedDate
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: price
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: height
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: width
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: depth
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: quantity
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: unitOfMeasure
-    }
-  ]
-};
-
-
-annotate CAP_PROJECT_SERVICE.Item with {
-  header @Common.Label: 'Header'
-};
-
-annotate CAP_PROJECT_SERVICE.Item with @UI.Facets: [{
-  $Type : 'UI.ReferenceFacet',
-  ID    : 'Main',
-  Label : 'Item Information',
-  Target: '@UI.FieldGroup#Main'
-}];
-
-annotate CAP_PROJECT_SERVICE.Item with @UI.SelectionFields: [itemID];

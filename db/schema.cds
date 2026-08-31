@@ -1,5 +1,6 @@
 namespace CAP_PROJECT;
 
+
 using {
   cuid,
   managed,
@@ -12,12 +13,12 @@ using {
 
 entity Header : cuid, managed {
 
-  headerID     : String(36)  @mandatory  @Core.Immutable;
+  headerID     : String(36)  @mandatory @readonly;
   email        : String      @mandatory  @assert.format: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'  @Communication.IsEmailAddress;
   firstName    : String(30)  @mandatory;
   lastName     : String(30);
   country      : Country;
-  createOn     : Date        @Core.Immutable;
+  createOn     : Date;
   deliveryDate : DateTime;
   orderStatus  : Association to one status;
   imageUrl     : String(255);
@@ -27,7 +28,7 @@ entity Header : cuid, managed {
 
 @assert.unique: {itemID: [itemID]}
 entity Item : cuid {
-  itemID           : String(36)     @mandatory @Core.Immutable;
+  itemID           : String(36)     @mandatory @readonly;
   name             : String(100);
   description      : String(255);
   releaseDate      : Date;
