@@ -9,11 +9,9 @@ using {
   sap.common.CodeList
 } from '@sap/cds/common';
 
-@assert.unique: {headerID: [headerID]}
-
 entity Header : cuid, managed {
 
-  headerID     : String(36)  @mandatory @readonly;
+  headerID     : String(36)  @mandatory  @readonly;
   email        : String      @mandatory  @assert.format: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'  @Communication.IsEmailAddress;
   firstName    : String(30)  @mandatory;
   lastName     : String(30);
@@ -26,20 +24,21 @@ entity Header : cuid, managed {
                    on items.header = $self
 }
 
-@assert.unique: {itemID: [itemID]}
 entity Item : cuid {
-  itemID           : String(36)     @mandatory @readonly;
+  itemID           : String(36)              @mandatory  @readonly;
   name             : String(100);
+
+  @mandatory
   description      : String(255);
   releaseDate      : Date;
   discontinuedDate : Date;
-  price            : Decimal(13, 2) @mandatory;
-  Currency         : Currency       @mandatory;
+  price            : Decimal(13, 2)          @mandatory;
+  Currency         : Currency                @mandatory;
   height           : Decimal(7, 2);
   width            : Decimal(7, 2);
   depth            : Decimal(7, 2);
-  quantity         : Integer        @mandatory;
-  unitOfMeasure    : String(20)     @Common.IsUnit;
+  quantity         : Integer                 @mandatory;
+  unitOfMeasure    : Association to one Unit @Common.IsUnit;
   header           : Association to one Header;
 }
 
@@ -54,5 +53,11 @@ entity status : CodeList {
       };
 
       criticality : Integer;
+
+}
+
+entity Unit : CodeList {
+
+  key code : String(20);
 
 }
