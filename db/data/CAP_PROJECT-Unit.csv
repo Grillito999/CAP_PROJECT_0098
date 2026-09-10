@@ -1,0 +1,15 @@
+code,name,descr
+KG,Kilogram,Kilogram
+G,Gram,Gram
+M,Meter,Meter
+CM,Centimeter,Centimeter
+PC,Piece,Piece
+BOX,Box,Box
+L,Liter,Liter
+ML,Milliliter,Milliliter
+H,Hour,Hour
+DAY,Day,Day
+EA,Each,Each
+MON,Month,Month
+YEAR,Year,Year
+PERCENT,Percent,Percent

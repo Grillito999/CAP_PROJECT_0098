@@ -1,7 +1,7 @@
 code,locale,name,descr
-InStock,en,In Stock,Product available in warehouse
-InStock,es,En Stock,Producto disponible en bodega
-NotInStock,en,Not In Stock,Out of stock in warehouse
-NotInStock,es,Sin Stock,Sin existencias en inventario
-LowAvailability,en,Low Availability,Limited stock remaining
-LowAvailability,es,Baja Disponibilidad,Pocas unidades disponibles en inventario
+Confirmed,en,Confirmed,confirmed order
+Confirmed,es,Confirmada,Orden confirmada
+Cancelled,en,Cancelled,Cancelled
+Cancelled,es,Cancelada,Cancelada
+Processing,en,Processing,Processing order
+Processing,es,En proceso,En proceso

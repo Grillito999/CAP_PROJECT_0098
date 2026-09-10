@@ -1,5 +1,5 @@
-ID,itemID,name,description,releaseDate,discontinuedDate,price,Currency_code,height,width,depth,quantity,unitOfMeasure,header_ID
-c3b2a1d0-e9f8-4a7b-8c6d-5e4f3a2b1c0d,200001,Laptop Pro 15,Portátil de alto rendimiento con 32GB RAM,2025-01-10,2028-12-31,1499.99,USD,1.8,35.6,24,2,CM,e4f2a1b0-9c8d-4e7a-b5f3-1a2b3c4d5e6f		
-f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c,200002,Mouse Inalámbrico,Mouse ergonómico bluetooth 4.0,2024-05-15,2027-05-15,29.50,USD,4,6.5,12,5,CM,e4f2a1b0-9c8d-4e7a-b5f3-1a2b3c4d5e6f		
-d9e8f7a6-b5c4-4d3e-a2f1-0b9a8c7d6e5f,200003,Monitor UltraWide 34,Monitor curvo 4K 144Hz,2025-03-20,2029-01-01,750.00,EUR,45,81,21,1,CM,a8b9c0d1-e2f3-4a5b-8c7d-9e0f1a2b3c4d		
-b5a4c3d2-e1f0-4a9b-8c7d-6e5f4a3b2c1d,200004,Teclado Mecánico RGB,Teclado switches red layout español,2024-11-01,2027-11-01,1.200.000,COP,4,44,13,10,CM,f7e6d5c4-b3a2-4f1e-9d8c-7b6a5f4e3d2c		
+ID,itemID,name,description,releaseDate,discontinuedDate,price,Currency_code,height,width,depth,quantity,unitOfMeasure_code,header_ID
+c3b2a1d0-e9f8-4a7b-8c6d-5e4f3a2b1c0d,1,Laptop Pro 15,Portátil de alto rendimiento con 32GB RAM,2025-01-10,2028-12-31,1499.99,USD,1.8,35.6,24,2,CM,e4f2a1b0-9c8d-4e7a-b5f3-1a2b3c4d5e6f		
+f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c,1,Mouse Inalámbrico,Mouse ergonómico bluetooth 4.0,2024-05-15,2027-05-15,29.50,USD,4,6.5,12,5,CM,e4f2a1b0-9c8d-4e7a-b5f3-1a2b3c4d5e6f		
+d9e8f7a6-b5c4-4d3e-a2f1-0b9a8c7d6e5f,1,Monitor UltraWide 34,Monitor curvo 4K 144Hz,2025-03-20,2029-01-01,750.00,EUR,45,81,21,1,CM,a8b9c0d1-e2f3-4a5b-8c7d-9e0f1a2b3c4d		
+b5a4c3d2-e1f0-4a9b-8c7d-6e5f4a3b2c1d,1,Teclado Mecánico RGB,Teclado switches red layout español,2024-11-01,2027-11-01,1200000,COP,4,44,13,10,CM,f7e6d5c4-b3a2-4f1e-9d8c-7b6a5f4e3d2c		

@@ -12,7 +12,7 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.HeaderInfo: {
 annotate CAP_PROJECT_SERVICE.Header with {
   ID           @UI.HiddenFilter: true           @Consumption.filter.hidden: true;
   headerID     @title: 'ID';
-  email        @title: 'Email';
+  email        @title: 'Email'; 
   firstName    @title: 'First Name';
   lastName     @title: 'Last Name';
   country      @title: 'Country';
@@ -50,19 +50,19 @@ annotate CAP_PROJECT_SERVICE.Header with {
         ValueListProperty: 'headerID',
       },
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: email,
         ValueListProperty: 'email',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: firstName,
         ValueListProperty: 'firstName',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: lastName,
         ValueListProperty: 'lastName',
       }
@@ -86,13 +86,13 @@ annotate CAP_PROJECT_SERVICE.Header with {
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: firstName,
         ValueListProperty: 'firstName',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: lastName,
         ValueListProperty: 'lastName',
       }
@@ -182,7 +182,7 @@ annotate CAP_PROJECT_SERVICE.Header with {
         },
 
         {
-          $Type            : 'Common.ValueListParameterInOut',
+          $Type            : 'Common.ValueListParameterDisplayOnly',
           LocalDataProperty: country_code,
           ValueListProperty: 'name',
         }
@@ -279,51 +279,52 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
 
 annotate CAP_PROJECT_SERVICE.Header with @UI.Identification: [
 
-    {
-      $Type: 'UI.DataField',
-      Value: headerID,
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: email,
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: firstName
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: lastName
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: country_code
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: createOn
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: deliveryDate
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: orderStatus_code
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: imageUrl
-    }
+  {
+    $Type: 'UI.DataField',
+    Value: headerID,
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: email,
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: firstName
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: lastName
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: country_code
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: createOn
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: deliveryDate
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: orderStatus_code,
+    Criticality: orderStatus.criticality
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: imageUrl
+  }
 
-  ];
+];
 
 annotate CAP_PROJECT_SERVICE.Header with @UI.Facets: [
   {
     $Type : 'UI.ReferenceFacet',
     ID    : 'Main',
     Label : 'Product Information',
-    Target: '@UI.Identifications'
+    Target: '@UI.Identification'
   },
   {
     $Type : 'UI.ReferenceFacet',
@@ -349,11 +350,11 @@ annotate CAP_PROJECT_SERVICE.Item with {
   releaseDate      @title: 'Release Date';
   discontinuedDate @title: 'Discontinued Date';
   price            @title: 'Price'        @Measures.ISOCurrency: Currency_code;
-  height           @title: 'Height'       @Measures.Unit       : unitOfMeasure;
-  width            @title: 'Width'        @Measures.Unit       : unitOfMeasure;
-  depth            @title: 'Depth'        @Measures.Unit       : unitOfMeasure;
+  height           @title: 'Height'       @Measures.Unit       : unitOfMeasure_code;
+  width            @title: 'Width'        @Measures.Unit       : unitOfMeasure_code;
+  depth            @title: 'Depth'        @Measures.Unit       : unitOfMeasure_code;
   quantity         @title: 'Quantity';
-  unitOfMeasure    @title: 'Unit Of Measure';
+  unitOfMeasure    @title: 'Unit Of Measure'
 
 };
 
@@ -373,13 +374,13 @@ annotate CAP_PROJECT_SERVICE.Item with {
         ValueListProperty: 'itemID',
       },
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: name,
         ValueListProperty: 'name',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: description,
         ValueListProperty: 'description',
       },
@@ -403,7 +404,7 @@ annotate CAP_PROJECT_SERVICE.Item with {
         ValueListProperty: 'name',
       },
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: description,
         ValueListProperty: 'description',
       }
@@ -417,21 +418,28 @@ annotate CAP_PROJECT_SERVICE.Item with {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
-    CollectionPath: 'Item',
+    CollectionPath: 'unit',
 
     Parameters    : [
       {
 
 
-        $Type            : 'Common.ValueListParameterIn',
-        LocalDataProperty: itemID,
-        ValueListProperty: 'itemID',
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: unitOfMeasure_code,
+        ValueListProperty: 'code',
       },
+
       {
-        $Type            : 'Common.ValueListParameterOut',
-        LocalDataProperty: unitOfMeasure,
-        ValueListProperty: 'unitOfMeasure',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        LocalDataProperty: unitOfMeasure_code,
+        ValueListProperty: 'name',
       },
+
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        LocalDataProperty: unitOfMeasure_code,
+        ValueListProperty: 'descr',
+      }
 
     ]
   },
@@ -449,51 +457,58 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.Facets: [{
 }];
 
 annotate CAP_PROJECT_SERVICE.Item with @UI.Identification: [
-    {
-      $Type: 'UI.DataField',
-      Value: itemID
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: name
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: description
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: releaseDate
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: discontinuedDate
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: price
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: height
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: width
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: depth
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: quantity
-    },
-    {
-      $Type: 'UI.DataField',
-      Value: unitOfMeasure
-    }
-  ];
+  {
+    $Type: 'UI.DataField',
+    Value: itemID
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: name
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: description
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: releaseDate
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: discontinuedDate
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: price
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: height
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: width
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: depth
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: quantity
+  },
+  {
+    $Type: 'UI.DataField',
+    Value: unitOfMeasure_code
+  },
+
+  {
+    $Type : 'UI.DataFieldForAction',
+    Action: 'CAP_PROJECT_SERVICE.setDiscount',
+    Label : 'Discount'
+
+  }
+];
 
 annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
   {
@@ -538,6 +553,22 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
   },
   {
     $Type: 'UI.DataField',
-    Value: unitOfMeasure
+    Value: unitOfMeasure_code
   }
 ];
+
+annotate CAP_PROJECT_SERVICE.status with {
+
+  code @Common: {
+    Text           : name,
+    TextArrangement: #TextOnly
+  }
+
+};
+
+annotate CAP_PROJECT_SERVICE.Dialog with {
+
+
+  Discount  @Common: {Label: 'Discount percentage', }  @mandatory
+
+};
