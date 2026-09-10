@@ -12,7 +12,7 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.HeaderInfo: {
 annotate CAP_PROJECT_SERVICE.Header with {
   ID           @UI.HiddenFilter: true           @Consumption.filter.hidden: true;
   headerID     @title: 'ID';
-  email        @title: 'Email'; 
+  email        @title: 'Email';
   firstName    @title: 'First Name';
   lastName     @title: 'Last Name';
   country      @title: 'Country';
@@ -274,6 +274,22 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
   {
     $Type: 'UI.DataField',
     Value: imageUrl
+  },
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.ApproveOrder',
+    Criticality: 3,
+    Label      : 'Approve order'
+
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.RejectOrder',
+    Criticality: 1,
+    Label      : 'Reject order'
+
+
   }
 ];
 
@@ -308,13 +324,29 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.Identification: [
     Value: deliveryDate
   },
   {
-    $Type: 'UI.DataField',
-    Value: orderStatus_code,
+    $Type      : 'UI.DataField',
+    Value      : orderStatus_code,
     Criticality: orderStatus.criticality
   },
   {
     $Type: 'UI.DataField',
     Value: imageUrl
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.ApproveOrder',
+    Criticality: 3,
+    Label      : 'Approve order'
+
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.RejectOrder',
+    Criticality: 1,
+    Label      : 'Reject order'
+
   }
 
 ];
