@@ -1,12 +1,5 @@
 {
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "database": "${workspaceFolder:CAP_PROJECT_0098}/db.sqlite",
-            "name": "Sqlite"
-        }
-    ],
+    "sqltools.connections": [],
     "Storyboard.openStoryboardAutomatically": false,
     "ProjectOverview.openAutomatically": false
 }
