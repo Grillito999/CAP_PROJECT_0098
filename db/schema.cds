@@ -47,7 +47,7 @@ entity status : CodeList {
 
         Confirmed = 'Confirmed order';
         Cancelled = 'Cancelled';
-        Processing = 'Processing order';
+        Processing = 'In Progress';
 
       };
 
