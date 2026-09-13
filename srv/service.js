@@ -6,6 +6,7 @@ class OrderItem extends cds.ApplicationService {
 
         const { Header } = this.entities;
 
+
         this.before("NEW", Header.drafts, async (req) => {
 
             const fechaActual = new Date().toISOString().split('T')[0];
@@ -36,7 +37,7 @@ class OrderItem extends cds.ApplicationService {
 
             let currentMax = Math.max(max);
 
-            let newmax = currentMax > 0 ? currentMax + 1 : 100001;
+            let newmax = currentMax > 0 ? currentMax + 1 : 1;
 
             req.data.itemID = newmax;
         });

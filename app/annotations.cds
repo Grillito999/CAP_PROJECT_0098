@@ -50,19 +50,19 @@ annotate CAP_PROJECT_SERVICE.Header with {
         ValueListProperty: 'headerID',
       },
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: email,
         ValueListProperty: 'email',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: firstName,
         ValueListProperty: 'firstName',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: lastName,
         ValueListProperty: 'lastName',
       }
@@ -86,13 +86,13 @@ annotate CAP_PROJECT_SERVICE.Header with {
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: firstName,
         ValueListProperty: 'firstName',
       },
 
       {
-        $Type            : 'Common.ValueListParameterInOut',
+        $Type            : 'Common.ValueListParameterDisplayOnly',
         LocalDataProperty: lastName,
         ValueListProperty: 'lastName',
       }
@@ -182,7 +182,7 @@ annotate CAP_PROJECT_SERVICE.Header with {
         },
 
         {
-          $Type            : 'Common.ValueListParameterInOut',
+          $Type            : 'Common.ValueListParameterDisplayOnly',
           LocalDataProperty: country_code,
           ValueListProperty: 'name',
         }
@@ -274,6 +274,22 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.LineItem: [
   {
     $Type: 'UI.DataField',
     Value: imageUrl
+  },
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.ApproveOrder',
+    Criticality: 3,
+    Label      : 'Approve order'
+
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.RejectOrder',
+    Criticality: 1,
+    Label      : 'Reject order'
+
+
   }
 ];
 
@@ -308,12 +324,29 @@ annotate CAP_PROJECT_SERVICE.Header with @UI.Identification: [
     Value: deliveryDate
   },
   {
-    $Type: 'UI.DataField',
-    Value: orderStatus_code
+    $Type      : 'UI.DataField',
+    Value      : orderStatus_code,
+    Criticality: orderStatus.criticality
   },
   {
     $Type: 'UI.DataField',
     Value: imageUrl
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.ApproveOrder',
+    Criticality: 3,
+    Label      : 'Approve order'
+
+  },
+
+  {
+    $Type      : 'UI.DataFieldForAction',
+    Action     : 'CAP_PROJECT_SERVICE.RejectOrder',
+    Criticality: 1,
+    Label      : 'Reject order'
+
   }
 
 ];
@@ -353,7 +386,7 @@ annotate CAP_PROJECT_SERVICE.Item with {
   width            @title: 'Width'        @Measures.Unit       : unitOfMeasure_code;
   depth            @title: 'Depth'        @Measures.Unit       : unitOfMeasure_code;
   quantity         @title: 'Quantity';
-  unitOfMeasure    @title: 'Unit Of Measure';
+  unitOfMeasure    @title: 'Unit Of Measure'
 
 };
 
@@ -417,22 +450,28 @@ annotate CAP_PROJECT_SERVICE.Item with {
 
   ValueList: {
     $Type         : 'Common.ValueListType',
-    CollectionPath: 'Unit',
+    CollectionPath: 'unit',
 
     Parameters    : [
       {
-        $Type            : 'Common.ValueListParameterOut',
+
+
+        $Type            : 'Common.ValueListParameterInOut',
         LocalDataProperty: unitOfMeasure_code,
         ValueListProperty: 'code',
       },
+
       {
         $Type            : 'Common.ValueListParameterDisplayOnly',
+        LocalDataProperty: unitOfMeasure_code,
         ValueListProperty: 'name',
       },
+
       {
         $Type            : 'Common.ValueListParameterDisplayOnly',
+        LocalDataProperty: unitOfMeasure_code,
         ValueListProperty: 'descr',
-      },
+      }
 
     ]
   },
@@ -452,7 +491,7 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.Facets: [{
 annotate CAP_PROJECT_SERVICE.Item with @UI.Identification: [
   {
     $Type: 'UI.DataField',
-    Value: itemID
+    Value: itemID,
   },
   {
     $Type: 'UI.DataField',
@@ -498,55 +537,72 @@ annotate CAP_PROJECT_SERVICE.Item with @UI.Identification: [
   {
     $Type : 'UI.DataFieldForAction',
     Action: 'CAP_PROJECT_SERVICE.setDiscount',
-    Label: 'Discount'
-
+    Label : 'Discount'
   }
+
 ];
 
 annotate CAP_PROJECT_SERVICE.Item with @UI.LineItem: [
   {
-    $Type: 'UI.DataField',
-    Value: itemID
+    $Type                : 'UI.DataField',
+    Value                : itemID,
+    ![@HTML5.CssDefaults]: {width: '8rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: name
+    $Type                : 'UI.DataField',
+    Value                : name,
+    ![@HTML5.CssDefaults]: {width: '12rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: description
+    $Type                : 'UI.DataField',
+    Value                : description,
+    ![@HTML5.CssDefaults]: {width: '12rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: releaseDate
+    $Type                : 'UI.DataField',
+    Value                : releaseDate,
+    ![@HTML5.CssDefaults]: {width: '6rem'}
+
   },
   {
-    $Type: 'UI.DataField',
-    Value: discontinuedDate
+    $Type                : 'UI.DataField',
+    Value                : discontinuedDate,
+    ![@HTML5.CssDefaults]: {width: '6rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: price
+    $Type                : 'UI.DataField',
+    Value                : price,
+    ![@HTML5.CssDefaults]: {width: '13rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: height
+    $Type                : 'UI.DataField',
+    Value                : height,
+    ![@HTML5.CssDefaults]: {width: '15rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: width
+    $Type                : 'UI.DataField',
+    Value                : width,
+    ![@HTML5.CssDefaults]: {width: '15rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: depth
+    $Type                : 'UI.DataField',
+    Value                : depth,
+    ![@HTML5.CssDefaults]: {width: '15rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: quantity
+    $Type                : 'UI.DataField',
+    Value                : quantity,
+    ![@HTML5.CssDefaults]: {width: '15rem'}
   },
   {
-    $Type: 'UI.DataField',
-    Value: unitOfMeasure_code
+    $Type                : 'UI.DataField',
+    Value                : unitOfMeasure_code
+  },
+  {
+    $Type : 'UI.DataFieldForAction',
+    Action: 'CAP_PROJECT_SERVICE.setDiscount',
+    Label : 'Discount'
+
   }
 ];
 
@@ -561,9 +617,7 @@ annotate CAP_PROJECT_SERVICE.status with {
 
 annotate CAP_PROJECT_SERVICE.Dialog with {
 
- 
-Discount @Common : { Label : 'Discount percentage', } @mandatory
 
-  };
+  Discount  @Common: {Label: 'Discount percentage', }  @mandatory
 
-
+};
