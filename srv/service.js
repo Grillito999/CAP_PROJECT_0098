@@ -1,5 +1,6 @@
 const cds = require('@sap/cds');
 const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
+const { header } = require('express/lib/request');
 
 class OrderItem extends cds.ApplicationService {
     init() {
@@ -60,6 +61,58 @@ class OrderItem extends cds.ApplicationService {
             });
 
             req.info(200, `Descuento del ${discount}% aplicado. Nuevo precio: ${newValue}`);
+        });
+
+        this.on("ApproveOrder", async (req) => {
+            const STATUS_PROCESSING = 'Processing';
+            const STATUS_CONFIRMED = 'Confirmed';
+
+            // 1. Leer el registro actual de la base de datos
+            const order = await SELECT.one(req.subject).columns('orderStatus_code');
+
+            // 2. Validar que la orden exista (buena práctica)
+            if (!order) {
+                return req.reject(404, 'Orden no encontrada');
+            }
+
+            // 3. Validar el estado (usamos !== que es más seguro en Javascript)
+            if (order.orderStatus_code !== STATUS_PROCESSING) {
+                return req.reject(400, 'No se puede modificar una orden que ya fue aprobada o rechazada');
+            }
+
+            // 4. Actualizar el estado en la base de datos (usando el sufijo _code)
+            await UPDATE(req.subject).with({
+                orderStatus_code: STATUS_CONFIRMED
+            });
+
+            // 5. Enviar respuesta de éxito
+            req.info(200, `Order approved`);
+        });
+
+ this.on("RejectOrder", async (req) => {
+            const STATUS_PROCESSING = 'Processing';
+            const STATUS_CANCELLED = 'Cancelled';
+
+            // 1. Leer el registro actual de la base de datos
+            const order = await SELECT.one(req.subject).columns('orderStatus_code');
+
+            // 2. Validar que la orden exista (buena práctica)
+            if (!order) {
+                return req.reject(404, 'Orden no encontrada');
+            }
+
+            // 3. Validar el estado (usamos !== que es más seguro en Javascript)
+            if (order.orderStatus_code !== STATUS_PROCESSING) {
+                return req.reject(400, 'No se puede modificar una orden que ya fue aprobada o rechazada');
+            }
+
+            // 4. Actualizar el estado en la base de datos (usando el sufijo _code)
+            await UPDATE(req.subject).with({
+                orderStatus_code: STATUS_CANCELLED
+            });
+
+            // 5. Enviar respuesta de éxito
+            req.info( 200, `Order cancelled`);
         });
 
         return super.init();

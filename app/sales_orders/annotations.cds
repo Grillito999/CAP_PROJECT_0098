@@ -1,0 +1,1 @@
+using CAP_PROJECT_SERVICE as service from '../../srv/service';
